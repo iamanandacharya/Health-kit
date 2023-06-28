@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 1
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+  <ion-item>
+    <ion-label stacked>Set Height</ion-label>
+    <ion-input type="text" [(ngModel)]="height" placeholder="My Height today (in cm)"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Current Height</ion-label>
+    <ion-input type="text" [(ngModel)]="currentHeight" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Steps last 24h</ion-label>
+    <ion-input type="text" [(ngModel)]="stepcount" readonly></ion-input>
+  </ion-item>
+
+  <button ion-button full (click)="saveHeight()">Set Height</button>
+  <button ion-button full (click)="saveWorkout()">Set a Workout</button>
+  <ion-card *ngIf="workouts.length == 0">
+    <ion-card-header>No data</ion-card-header>
+  </ion-card>
+  <ion-list *ngIf="workouts.length != 0">
+   
+      <ion-card *ngFor="let workout of workouts">
+        <ion-card-header>{{ workout.calories || '' }}</ion-card-header>
+        <ion-card-content>
+          <p>Activity: {{ workout.activityType || ''}}</p>
+          <p>Duration: {{ workout.duration / 100 || ''}} min</p>
+          <p>Date: {{ workout.startDate | date:'short' || ''}}</p>
+          <p>Distance: {{ workout.miles || ''}} miles</p>
+        </ion-card-content>
+      </ion-card>  
+   </ion-list>
+</ion-content>
